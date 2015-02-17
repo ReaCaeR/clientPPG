@@ -17,8 +17,11 @@
 		<div id="right">
 			<?php 
 			if (!isset($_SESSION["username"]))
-			{
 				include("register.php"); 
+			else
+			{
+				echo'<div id="in_left"> [PROVAS] </div>';
+				echo'<div id="in_right"> [PROVAD] </div>';
 			}
 			?>
 		</div>

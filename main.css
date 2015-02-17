@@ -44,8 +44,30 @@ body{
     padding-right:2%;
 }
 #right {
+background: #000000;
     position: fixed;
     right:0px;
+    top:20%;
+    height:100%;
+    width: 75%;
+    padding-right:2%;
+    padding-left:2%;
+}
+
+#in_left{
+	background-color: #DDDDDD;
+    position: relative;
+	float:left;
+    height:1000px;
+    width: 19%;
+    padding-left:2%;
+    padding-right:2%;
+}
+
+#in_right{
+	background-color: #CCCCCC;
+	position: relative;
+	right:0px;
     top:20%;
     height:100%;
     width: 75%;
