@@ -62,9 +62,14 @@ class Database{
 		pst.setString(2, pwd);
 		rs=pst.executeQuery();
 		if(rs.next())
-			return Integer.parseInt(rs.getString("user_id"));
+                {
+                    int id = Integer.parseInt(rs.getString("user_id"));
+                    return id;
+                }
                 else
-			return -1;
+                {
+                    return -1;
+                }
             } catch (Exception e) {
 		return -1;
             }
@@ -94,4 +99,12 @@ public class PPGService{
                                 @WebParam(name = "password") String password){
         return db.checkLogin(username,password);
     }
+    
+    @WebMethod(operationName = "DEBUGSendDate")
+    public void DEBUGSendDate(  @WebParam(name = "day") int day,
+                                @WebParam(name = "month") int month,
+                                @WebParam(name = "year") int year)
+    {
+    }
 }
+

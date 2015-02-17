@@ -1,7 +1,6 @@
 <html>
 <head>
-	<title> PaintPG </title>
-	
+	<title>PaintPG</title>
 	<link href="main.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
 <body>
@@ -12,6 +11,7 @@
 	
 	<div id="body_container">
 		<div id="left">
+			<p><?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'NOT LOGGED IN'; ?></p>
 			[FEEDS HERE]
 		</div>
 		<div id="right">
