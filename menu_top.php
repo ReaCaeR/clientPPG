@@ -6,6 +6,7 @@
 
 <body>
 	<div id="top_container">
+		<div id="menu">[prova]<?php/*include("main_menu.php");*/ ?></div>
 		<div id="logo"><a href="index.php"><img src="logo.png" alt="logo"/></a></div>	
 		<div id="login"><?php include("login.php"); ?></div>
 	</div>

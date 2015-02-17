@@ -19,16 +19,16 @@ body{
     left: 0px;
     right: 0px;
     z-index:999;
-	
-	/* misc */
-	/*
-    font-family: Verdana, Geneva, sans-serif;
-    color: rgb(255,255,255);
-    font-size: 10px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: rgb(63,189,237);
-	*/
+}
+
+#menu
+{
+	position:absolute;
+	top:15%;
+	height:auto;
+	width:auto;
+	padding-left:2%;
+    padding-right:2%;
 }
 
 #body_container 
