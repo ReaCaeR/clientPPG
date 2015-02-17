@@ -20,8 +20,10 @@
 				include("register.php"); 
 			else
 			{
-				echo'<div id="in_left"> [PROVAS] </div>';
-				echo'<div id="in_right"> [PROVAD] </div>';
+				?>
+					<div id="in_left"> [PROVAS] </div>
+					<div id="in_right"> [PROVAD] </div>
+				<?php
 			}
 			?>
 		</div>

@@ -20,7 +20,6 @@
 					if($admin > 0){
 						$_SESSION['admin'] = $admin;
 					}*/
-				header("location: index.php");
 				}
 				else{
 					//Invalid username or password.

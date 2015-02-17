@@ -30,49 +30,39 @@ body{
 
 #body_container {	
     position: absolute;
-    top:25%;
+    top:18%;
     height: auto;
-    width: 98%;
+    width: 100%;
     z-index:1;
 }
 
 #left {
-    float:left;
-    height:1000px;
-    width: 19%;
-    padding-left:2%;
-    padding-right:2%;
+background: #654312;
+    float: left;
+    width: 33%; 
+    min-height:1080px;
 }
 #right {
 background: #000000;
-    position: fixed;
-    right:0px;
-    top:20%;
-    height:100%;
-    width: 75%;
-    padding-right:2%;
-    padding-left:2%;
+    float: left;
+    width: 66%; 
+    min-height:1080px;
 }
 
 #in_left{
 	background-color: #DDDDDD;
-    position: relative;
+    position:relative;
 	float:left;
-    height:1000px;
-    width: 19%;
-    padding-left:2%;
-    padding-right:2%;
+    min-height:1080px;
+    width:70%;
 }
 
 #in_right{
-	background-color: #CCCCCC;
-	position: relative;
-	right:0px;
-    top:20%;
-    height:100%;
-    width: 75%;
-    padding-right:2%;
-    padding-left:2%;
+	background-color: #123456;
+    position:relative;
+    float:left;
+    min-height:1080px;
+    width:30%;
 }
 
 #login {
