@@ -1,76 +1,69 @@
-/*CSS */
-
-body{
-	background: #6B6464;
-	color:#EEEEEE;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-   	font-weight: 300;
-   	line-height:100%;
+html,body{height:100%}
+.wrap{
+    width:100%;
+    height:100%;
+    position:relative
 }
 
-#menu_top{
-    background-color: #505464;	
-    width: 100%;
-    height: 100px;	
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    z-index:999;
+.head{
+    height:100px;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%
 }
 
-#menu{
-	position:absolute;
-	top:15%;
-	height:auto;
-	width:auto;
-	padding-left:2%;
-    padding-right:2%;
+.bodywrap{
+    margin-top:100px;
+    margin-left:-8px
 }
 
-#body_container {	
-    position: absolute;
-    top:18%;
-    height: auto;
-    width: 100%;
-    z-index:1;
+.left,.right{
+    width:200px;
+    height:100%
 }
 
-#left {
-background: #654312;
-    float: left;
-    width: 33%; 
-    min-height:1080px;
-}
-#right {
-background: #000000;
-    float: left;
-    width: 66%; 
-    min-height:1080px;
+.left,.center,.right,.bodywrap{
+    height:100%
 }
 
-#in_left{
-	background-color: #DDDDDD;
-    position:relative;
-	float:left;
-    min-height:1080px;
-    width:70%;
-}
-
-#in_right{
-	background-color: #123456;
-    position:relative;
+.left{
     float:left;
-    min-height:1080px;
-    width:30%;
+    position:fixed
 }
 
-#login {
+.center{
+    margin-left:200px;
+    margin-right:191px
+}
+
+.right{
+    position:fixed;
+    right:0
+}
+
+.left{
+    background-color:#aaa
+}
+
+.right{
+    background-color:#ccc
+}
+
+.center{
+    background-color:#444
+}
+
+.head{
+    background-color:#777
+}
+
+#logo{
+    text-align: center;
+}
+
+#login{
     position: absolute;
     right: 1em;
     top: 2em;
-}
-
-#logo {
-     text-align: center;
 }
