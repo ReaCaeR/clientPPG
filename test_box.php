@@ -1,10 +1,8 @@
 <?php
 	require_once("helper.php");
 
-	$function = "loginRequest";
-	$params = array('username' => 'vvv',
-					 'password' => 'vvv'
-					);
+	$function = "DEBUGStructTransfer";
+	$params = array();
 	$res = SOAPCall($function, $params);
 	echo $res;
 ?>
