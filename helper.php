@@ -22,17 +22,14 @@
 		}
 	}
 
-	function SOAPCall($function, $params)
-	{
+	function SOAPCall($function, $params){
 		global $client;
-		try
-		{
+		try{
 			$res = $client->__soapCall($function, array($params));
 			return $res;
 		}
-		catch (Exception $e) 
-		{
-		echo "PHP_SOAP_CALL_ERROR: " . $e->getMessage();
+		catch (Exception $e){
+			echo "PHP_SOAP_CALL_ERROR: " . $e->getMessage();
 		}	
 	}
 ?>
