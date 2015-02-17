@@ -6,7 +6,6 @@
 	<?php
 		require_once("helper.php");
 		
-		session_start();
 		$function = "registrationRequest";
 		$params = array('username' => $_POST['username'], 
 						'password'=> $_POST['password'], 
