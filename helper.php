@@ -33,10 +33,22 @@
 		}
 	}
 
+<<<<<<< HEAD
 	function checkLogin($username, $password){
 		$function = "loginRequest";
 		$params = array('username' =>$username,'password'=>$password);
 		$res = SOAPCall($function, $params);
+=======
+	function SOAPCall($function, $params){
+		global $client;
+		$res = -1;
+		try{
+			$res = $client->__soapCall($function, array($params));
+		}
+		catch (Exception $e){
+			echo "PHP_SOAP_CALL_ERROR: " . $e->getMessage();
+		}
+>>>>>>> origin/master
 		return $res->return;
 	}
 ?>

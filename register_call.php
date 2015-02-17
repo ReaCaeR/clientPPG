@@ -15,7 +15,7 @@
 						'colore1'=> $_POST['colore1'],
 						'colore2'=> $_POST['colore2']);				
 		$res = SOAPCall($function, $params);
-		echo $res->return;
+		echo $res;
 		header("Refresh: 4;url=./index.php");
 	?>
 	</body>
