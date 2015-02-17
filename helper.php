@@ -24,12 +24,13 @@
 
 	function SOAPCall($function, $params){
 		global $client;
+		$res = -1;
 		try{
 			$res = $client->__soapCall($function, array($params));
-			return $res;
 		}
 		catch (Exception $e){
 			echo "PHP_SOAP_CALL_ERROR: " . $e->getMessage();
-		}	
+		}
+		return $res->return;
 	}
 ?>
