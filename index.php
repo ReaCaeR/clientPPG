@@ -10,7 +10,7 @@
     <div class='bodywrap'>
         <div class='left'><p><?php echo isset($_SESSION['username']) ? 'USER_ID: ' . $_SESSION['username'] : 'NOT LOGGED IN'; ?></p></div>
         <div class='right'></div>
-        <div class='center'><?php if (!isset($_SESSION["username"])) include("register.php"); ?></div>
+        <div class='center'><?php if (!isset($_SESSION["username"])) include("register.php"); else include("send_post.php");?></div>
     </div>
  </div>
 </body>

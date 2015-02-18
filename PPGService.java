@@ -1,9 +1,17 @@
 package ws;
 
+import java.io.File;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import java.sql.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 
 class Database{
     
@@ -12,7 +20,7 @@ class Database{
     private ResultSet rs;
     static Database db;
         
-     public static Database getDatabaseHandler(){
+    public static Database getDatabaseHandler(){
         if(db == null)
             db = new Database();
         return db;
@@ -72,6 +80,42 @@ class Database{
         }
     }
     
+    //POST METHODS
+    protected String setPost(int user_id, String post_body){
+        try {
+            String query="SELECT `user_authentication`.`username` FROM `user_authentication` WHERE `user_authentication`.`user_id`=?";
+            pst=con.prepareStatement(query);
+            pst.setInt(1, user_id);
+            rs=pst.executeQuery();
+            String username="";
+            if(rs.next())
+                username=rs.getString("username");
+            pst.clearParameters();
+            query="INSERT INTO `paintpg_db`.`posts` (`post_id`, `post_date`, `post_body`, `user_id`, `username`)"
+                  + "VALUES (NULL, CURRENT_TIMESTAMP,?,?,?)";
+            pst=con.prepareStatement(query);
+            pst.setString(1, post_body);
+            pst.setInt(2, user_id);
+            pst.setString(3, username);
+            pst.executeUpdate();
+        } catch (Exception e){
+            return "Errore! " + e;
+        }
+        return "Post inserito!";  
+    }
+    
+    protected ResultSet getPost(){
+        try {
+            String query="SELECT * FROM posts ORDER BY `post_date` DESC";
+            pst=con.prepareStatement(query);
+            rs=pst.executeQuery();
+        } catch (Exception e) {
+            System.out.println("Errore: " + e);
+            return null;
+        }
+        return rs;
+    }
+    
     //ADMIN METHODS
     protected int isAdmin(int userID){
         try {
@@ -107,6 +151,84 @@ class Database{
         } catch (Exception e) {}
     }       
 }
+
+
+class XMLPostFile {
+
+String post_repo_xml="C:\\xampp\\htdocs\\clientPPG\\postfile.xml";
+
+protected boolean getXML() {
+    
+    Database db = Database.getDatabaseHandler();
+    
+    ResultSet xrs=db.getPost();
+    try {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+                  
+        Document doc = docBuilder.newDocument();
+        Element post_root = doc.createElement("post_root");
+        doc.appendChild(post_root);
+                
+        while (xrs.next()) {
+            String pbody = xrs.getString("post_body");
+            String uname = xrs.getString("username");
+            Timestamp pdate = xrs.getTimestamp("post_date");
+            int pid = xrs.getInt("post_id");
+            int uid = xrs.getInt("user_id");
+                  
+            Element post = doc.createElement("post");
+            post_root.appendChild(post);
+                    
+            Element post_id = doc.createElement("post_id");
+            post_id.appendChild(doc.createTextNode(Integer.toString(pid)));
+            post.appendChild(post_id);
+                    
+            Element user_id = doc.createElement("user_id");
+            user_id.appendChild(doc.createTextNode(Integer.toString(uid))); 
+            post.appendChild(user_id);
+
+            Element post_date = doc.createElement("post_date");
+            post_date.appendChild(doc.createTextNode(String.format("%1$TD %1$TT", pdate)));
+            post.appendChild(post_date);
+
+            Element post_body = doc.createElement("post_body");
+            post_body.appendChild(doc.createTextNode(pbody));
+            post.appendChild(post_body);
+                    
+            Element username = doc.createElement("username");
+            username.appendChild(doc.createTextNode(uname));
+            post.appendChild(username);
+                    
+        }
+ 
+        // Scrive nel file XML
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+	DOMSource source = new DOMSource(doc);
+	StreamResult result = new StreamResult(new File(post_repo_xml));
+ 		
+ 	transformer.transform(source, result);
+ 
+	return true;
+                
+    } catch (SQLException ex) {
+        System.out.println(ex);
+        return false;
+    } catch (ParserConfigurationException pce) {
+        System.out.println(pce);
+        return false;
+    } catch (TransformerException tfe) {
+        System.out.println(tfe);
+        return false;
+    }
+}
+}
+
+
+
+
+
 
 @WebService(serviceName = "PaintPGService")
 public class PPGService{
@@ -147,11 +269,25 @@ public class PPGService{
         db.rmvAdmin(userID);
     }
     
+    //POST WEBMETHODS
+    @WebMethod(operationName = "setPost")
+    public String setPost(  @WebParam(name = "user_id") int user_id, 
+                            @WebParam(name = "post_body") String post_body){
+        String res = db.setPost(user_id, post_body);
+        return res;
+    }
+
+    @WebMethod(operationName = "updatePostXML")
+    public boolean updatePostXML() {
+        XMLPostFile xml = new XMLPostFile();
+        boolean res = xml.getXML();
+        return res;
+    }
+    
     @WebMethod(operationName = "DEBUGSendDate")
     public void DEBUGSendDate(  @WebParam(name = "day") int day,
                                 @WebParam(name = "month") int month,
                                 @WebParam(name = "year") int year)
-    {
-    }
+    {}
 }
 
