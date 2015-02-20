@@ -12,14 +12,17 @@
 				$user_id = stripslashes(htmlspecialchars($user_id));
 				//check if user and pass are valid
 				if($user_id>0){
-					$_SESSION['username'] = $user_id;
+					$_SESSION['user_id'] = $user_id;
+					$function2 = 'getUsername';
+					$params= array('user_id' => $_SESSION['user_id']);
+					$_SESSION['username'] = SOAPCall($function2, $params);
+					$function3 = 'isAdmin';
+					$admin = SOAPCall($function3, $params);
+					if($admin > 0)
+						$_SESSION['admin'] = $admin;
 					echo 	'<form action="logout.php">
 								<input type="submit" value="LOGOUT">
 							</form>';
-					/*$admin = isAdmin($_SESSION['username']);
-					if($admin > 0){
-						$_SESSION['admin'] = $admin;
-					}*/
 				}
 				else{
 					//Invalid username or password.
