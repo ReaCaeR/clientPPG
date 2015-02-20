@@ -104,6 +104,20 @@ class Database{
         return "Post inserito!";  
     }
     
+     protected String setMatch(int user_id, Date match_date){
+        try {
+            String query="INSERT INTO `paintpg_db`.`matches` (`post_id`, `id_s1`, `id_s2`, `match_date`, `res1`, `res2`)"
+                  + "VALUES (NULL,?,NULL,?,NULL,NULL)";
+            pst=con.prepareStatement(query);
+            pst.setInt(1, user_id);
+            pst.setDate(2, match_date);
+            pst.executeUpdate();
+        } catch (Exception e){
+            return "Errore! " + e;
+        }
+        return "Proposta di Match inserita!";  
+    }
+    
     protected ResultSet getPost(){
         try {
             String query="SELECT * FROM posts ORDER BY `post_date` DESC";
@@ -293,6 +307,12 @@ public class PPGService{
         String res = db.setPost(user_id, post_body);
         return res;
     }
+    
+    @WebMethod(operationName = "setMatch")
+    public String setMatch(  @WebParam(name = "user_id") int user_id,
+                             @WebParam(name = "match_date") Date match_date) {
+           return db.setMatch(user_id, match_date);
+    }  
 
     @WebMethod(operationName = "updatePostXML")
     public boolean updatePostXML() {
