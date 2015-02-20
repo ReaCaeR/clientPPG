@@ -296,7 +296,7 @@ public class PPGService{
     }
     
     @WebMethod(operationName = "rmvAdmin")
-    public void rmvAdmin(@WebParam(name ="userID") int user_id){
+    public void rmvAdmin(@WebParam(name ="user_id") int user_id){
         db.rmvAdmin(user_id);
     }
     
@@ -326,12 +326,6 @@ public class PPGService{
     @WebMethod(operationName = "getUsername")
     public String getUserName(@WebParam(name = "user_id") int user_id) {
         return db.getUsername(user_id);
-    }
-    
-    @WebMethod(operationName = "DEBUGSendDate")
-    public void DEBUGSendDate(  @WebParam(name = "day") int day,
-                                @WebParam(name = "month") int month,
-                                @WebParam(name = "year") int year)
-    {}
+    }     
 }
 
