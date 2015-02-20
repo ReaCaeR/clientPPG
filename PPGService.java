@@ -117,11 +117,11 @@ class Database{
     }
     
     //ADMIN METHODS
-    protected int isAdmin(int userID){
+    protected int isAdmin(int user_id){
         try {
             String query="SELECT `admin_level` FROM `admin` WHERE `user_id` = ?";
             pst=con.prepareStatement(query);
-            pst.setInt(1, userID);
+            pst.setInt(1, user_id);
             rs=pst.executeQuery();
             if(rs.next())
 		return rs.getInt("admin_level");                 
@@ -132,24 +132,41 @@ class Database{
         }
     }
         
-    protected void setAdmin(int userID){
+    protected void setAdmin(int user_id){
         try{
             String query="INSERT INTO `admin`(`user_id`, `admin_level`) VALUES (?, ?)";
             pst=con.prepareStatement(query);
-            pst.setInt(1, userID);
+            pst.setInt(1, user_id);
             pst.setInt(2, 2);
             pst.executeUpdate();
         } catch (Exception e) {}
     }
         
-    protected void rmvAdmin(int userID){
+    protected void rmvAdmin(int user_id){
         try{
             String query="DELETE FROM `admin` WHERE `user_id` = ?";
             pst=con.prepareStatement(query);
-            pst.setInt(1, userID);
+            pst.setInt(1, user_id);
             pst.executeUpdate();
         } catch (Exception e) {}
-    }       
+    }  
+    
+    //OTHER METHODS
+      
+    protected String getUsername(int user_id){
+	try {
+            String query="SELECT * FROM user_authentication WHERE user_id=?";
+            pst=con.prepareStatement(query);
+            pst.setString(1, String.valueOf(user_id));
+            rs=pst.executeQuery();
+            if(rs.next())
+                return rs.getString("username");                      
+            else
+                return "error";
+        } catch (Exception e) {
+            return "error";
+        }
+    }
 }
 
 
@@ -255,18 +272,18 @@ public class PPGService{
     
     //ADMIN WEBMETHODS
     @WebMethod(operationName = "isAdmin")
-    public int isAdmin(@WebParam(name ="userID") int userID){
-        return db.isAdmin(userID);
+    public int isAdmin(@WebParam(name ="user_id") int user_id){
+        return db.isAdmin(user_id);
     }
     
     @WebMethod(operationName = "setAdmin")
-    public void setAdmin(@WebParam(name ="userID") int userID){
-        db.setAdmin(userID);
+    public void setAdmin(@WebParam(name ="user_id") int user_id){
+        db.setAdmin(user_id);
     }
     
     @WebMethod(operationName = "rmvAdmin")
-    public void rmvAdmin(@WebParam(name ="userID") int userID){
-        db.rmvAdmin(userID);
+    public void rmvAdmin(@WebParam(name ="userID") int user_id){
+        db.rmvAdmin(user_id);
     }
     
     //POST WEBMETHODS
@@ -282,6 +299,13 @@ public class PPGService{
         XMLPostFile xml = new XMLPostFile();
         boolean res = xml.getXML();
         return res;
+    }
+    
+    //OTHERS
+    
+    @WebMethod(operationName = "getUsername")
+    public String getUserName(@WebParam(name = "user_id") int user_id) {
+        return db.getUsername(user_id);
     }
     
     @WebMethod(operationName = "DEBUGSendDate")
