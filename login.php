@@ -20,6 +20,8 @@
 					$admin = SOAPCall($function3, $params);
 					if($admin > 0)
 						$_SESSION['admin'] = $admin;
+					else
+						$_SESSION['admin'] = 'UTENTE';
 					echo 	'<form action="logout.php">
 								<input type="submit" value="LOGOUT">
 							</form>';
