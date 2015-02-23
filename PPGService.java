@@ -162,6 +162,20 @@ class Database{
                 return "ADMIN GIA' PRESENTE";
         } catch (Exception e) {return "Operazione fallita.";}
     }
+    
+    protected String rmvUser(int user_id){
+        try{
+            if (user_id != -1){
+                String query="DELETE FROM `user_authentication` WHERE `user_id` = ?";
+                pst=con.prepareStatement(query);
+                pst.setInt(1, user_id);
+                pst.executeUpdate();
+                return "SQUADRA ELIMINATA DAL DB";
+            }
+            else
+                return "SQUADRA NON PRESENTE NEL DB";
+        }catch (Exception e) {return "Operazione fallita.";}
+    }
         
     //GETTER METHODS FOR USERS
       
@@ -306,6 +320,11 @@ public class PPGService{
     @WebMethod(operationName = "setAdmin")
     public String setAdmin(@WebParam(name ="user_id") int user_id){
         return db.setAdmin(user_id);
+    }
+    
+    @WebMethod(operationName = "rmvUser")
+    public String rmvUser(  @WebParam(name = "user_id") int user_id){
+        return db.rmvUser(user_id);
     }
     
     //POST WEBMETHODS
