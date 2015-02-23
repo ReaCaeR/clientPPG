@@ -17,7 +17,7 @@
 				<?php echo strlen($day)==1 ? '0'.$day : $day; ?></option>
 			<?php } ?>
 		</select>
-
+		
 		<select name="month">
 			<option value="">Mese</option>
 				<?php for ($month = 1; $month <= 12; $month++) { ?>
@@ -26,7 +26,7 @@
 					<?php echo strlen($month)==1 ? '0'.$month : $month; ?></option>
 				<?php } ?>
 		</select>
-
+		</br></br>
 		<select name="year">
 			<option value="">Anno</option>
 				<?php for ($year = date('Y')+5; $year >= date('Y'); $year--) { ?>
@@ -35,7 +35,7 @@
 					<?php echo $year; ?></option>
 				<?php } ?>
 		</select>
-			
+		</br></br>	
 		<input class="input" type="submit" name="book_match" value="PRENOTA" />		
 	</fieldset>
 	</form>

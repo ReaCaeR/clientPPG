@@ -49,4 +49,28 @@
 		$res = SOAPCall($function, $params);
 		return $res;
 	}
+	
+	function getColor1($username){
+		$function = "getColor";
+		$params = array('username' => $username,
+						'color' => "color1");
+		$res = SOAPCall($function, $params);
+		return '#'.$res;
+	}
+	
+	function getColor2($username){
+		$function = "getColor";
+		$params = array('username' => $username,
+						'color' => "color2");
+		$res = SOAPCall($function, $params);
+		return '#'.$res;
+	}
+	
+	function getMotto($username){
+		$function = "getMotto";
+		$params = array('username' => $username);
+		$res = SOAPCall($function, $params);
+		return $res;
+	}
+	
 ?>

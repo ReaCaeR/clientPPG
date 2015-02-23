@@ -23,8 +23,8 @@
 			<label for="motto">Motto:</label></br>
 			<textarea rows="5" cols="20" name="motto" wrap="soft" placeholder="Inserisci motto squadra"></textarea>
 			</br>
-			<label for="colore1">Colore Primario:</label>
-			<select name="colore1">
+			<label for="color1">Colore Primario:</label>
+			<select name="color1">
 				<option value="000000">Nero</option>
 				<option value="FFFFFF">Bianco</option>
 				<option value="00CC00">Verde</option>
@@ -33,8 +33,8 @@
 				<option value="CCCC00">Giallo</option>
 			</select>
 			</br>
-			<label for="colore2">Colore Secondario:</label>
-			<select name="colore2">
+			<label for="color2">Colore Secondario:</label>
+			<select name="color2">
 				<option value="000000">Nero</option>
 				<option value="FFFFFF" selected="selected">Bianco</option>
 				<option value="00CC00">Verde</option>

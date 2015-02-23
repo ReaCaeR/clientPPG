@@ -46,19 +46,19 @@ html,body{
 }
 
 .left{
-    background-color:#aaa
+    background-color:#6431B0;
 }
 
 .right{
-    background-color:#ccc
+    background-color:#6431B0;
 }
 
 .center{
-    background-color:#444
+    background-color:#6B53AB;
 }
 
 .head{
-    background-color:#777
+    background-color:#5E4780;
 }
 
 #logo{
@@ -69,4 +69,25 @@ html,body{
     position: absolute;
     right: 1em;
     top: 2em;
+}
+
+/*profilo squadra*/
+
+#profilename{
+	font-family:arial;
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#profileadm{
+	text-align: center;
+	text-decoration: underline;
+	
+}
+
+#profilemotto{
+	text-align: center;
+	font-style: italic;
+	
 }

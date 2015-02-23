@@ -46,7 +46,7 @@ class Database{
             if(rs.next())
             return "Nome utente già in uso!";
             pst.close();
-            query="INSERT INTO `paintpg_db`.`user_authentication` (`user_id`, `username`, `password`, `motto`, `colore1`, `colore2`)" 
+            query="INSERT INTO `paintpg_db`.`user_authentication` (`user_id`, `username`, `password`, `motto`, `color1`, `color2`)" 
                   + "VALUES (NULL, ?, ?, ?, ?, ?)";
             pst=con.prepareStatement(query);
             pst.setString(1, usr);
@@ -208,6 +208,36 @@ class Database{
             return -1;
         }
     }
+    
+    protected String getColor(String username, String color){
+	try {
+            String query="SELECT " + color + " FROM user_authentication WHERE username=?";
+            pst=con.prepareStatement(query);
+            pst.setString(1, username);
+            rs=pst.executeQuery();
+            if(rs.next())
+                return rs.getString(color);                      
+            else
+                return "error";
+        } catch (Exception e) {
+            return "error";
+        }
+    }
+    
+    protected String getMotto(String username){
+	try {
+            String query="SELECT motto FROM user_authentication WHERE username=?";
+            pst=con.prepareStatement(query);
+            pst.setString(1,username);
+            rs=pst.executeQuery();
+            if(rs.next())
+                return rs.getString("motto");                      
+            else
+                return "error";
+        } catch (Exception e) {
+            return "error";
+        }
+    }
 }
 
 
@@ -297,10 +327,10 @@ public class PPGService{
                                         @WebParam(name = "password") String password,
                                         @WebParam(name = "passwordconfirm") String passwordconfirm,
                                         @WebParam(name = "motto") String motto,
-                                        @WebParam(name = "colore1") String colore1,
-                                        @WebParam(name = "colore2") String colore2) {
+                                        @WebParam(name = "color1") String color1,
+                                        @WebParam(name = "color2") String color2) {
         if(password.equals(passwordconfirm)) {
-           return db.registrationRequest(username, password, motto, colore1, colore2);
+           return db.registrationRequest(username, password, motto, color1, color2);
         }
         return "le password non corrispondono!";
     }  
@@ -358,6 +388,17 @@ public class PPGService{
     @WebMethod(operationName = "getUserid")
     public int getUserid(@WebParam(name = "username") String username) {
         return db.getUserid(username);
-    }   
+    }
+    
+    @WebMethod(operationName = "getColor")
+    public String getColor(@WebParam(name = "username") String username,
+                           @WebParam(name = "color") String color) {
+        return db.getColor(username, color);
+    } 
+    
+    @WebMethod(operationName = "getMotto")
+    public String getMotto(@WebParam(name = "username") String username) {
+        return db.getMotto(username);
+    } 
 }
 

@@ -1,8 +1,10 @@
 <?php
 	require_once("helper.php");
-
-	$function = "DEBUGStructTransfer";
-	$params = array();
-	$res = SOAPCall($function, $params);
-	echo $res;
 ?>
+<html>
+<head>
+</head>
+<body>
+		<div class='flag' style='background-color:<?php echo getColor1($_SESSION['username']);?>'></br></br></div>
+		<div class='flag' style='background-color:<?php echo getColor2($_SESSION['username']);?>'></br></br></div>
+</body>

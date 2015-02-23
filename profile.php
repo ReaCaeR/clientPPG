@@ -1,18 +1,14 @@
 <html>
 <head>
 	<title> PROFILO SQUADRA </title>
+	<link href="main.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
 
 <body>
 	<div id='profilename'>
-		<?php 
-			echo $_SESSION['username'];
-			if ($_SESSION['admin'] > 0) {
-			//controlli username
-			}
-			
-		?>
+		<h2><?php echo $_SESSION['username'];?></h2>
 	</div>
+	</br>
 	<div id='profileadm'>
 	<?php
 		if ($_SESSION['admin'] > 0)
@@ -21,15 +17,16 @@
 			echo ('SQUADRA REGISTRATA');
 	?>
 	</div> 
+	</br>
 	<div id='profileimg'>
-		IMMAGINE SQUADRA
+		<div class='flag' style='background-color:<?php echo getColor1($_SESSION['username']);?>'></br></br></div>
+		<div class='flag' style='background-color:<?php echo getColor2($_SESSION['username']);?>'></br></br></div>
 	</div> 
+	</br>
 	<div id='profilemotto'>
-		MOTTO <?php echo $_SESSION['user_id']; ?>
+		<?php echo getMotto($_SESSION['username']); ?>
 	</div>
-	<div id='nextmatches'>
-		PROSSIME PARTITE
-	</div>
+	</br>
 	<?php
 		if ($_SESSION['admin'] > 0)
 		include("admin_panel.php");

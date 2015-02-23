@@ -11,8 +11,8 @@
 						'password'=> $_POST['password'], 
 						'passwordconfirm'=> $_POST['passwordconfirm'],
 						'motto'=> $_POST['motto'],
-						'colore1'=> $_POST['colore1'],
-						'colore2'=> $_POST['colore2']);				
+						'color1'=> $_POST['color1'],
+						'color2'=> $_POST['color2']);				
 		$res = SOAPCall($function, $params);
 		echo $res;
 		header("Refresh: 4;url=./index.php");
