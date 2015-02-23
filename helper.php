@@ -15,7 +15,7 @@
 		catch (Exception $e){
 			echo "PHP_SOAP_CALL_ERROR: " . $e->getMessage();
 		}
-		return $res->return;
+			return $res->return;
 	}
 	
 	function printLoginForm($value){
@@ -39,6 +39,13 @@
 		$function = "loginRequest";
 		$params = array('username' => $username,
 						'password' => $password);
+		$res = SOAPCall($function, $params);
+		return $res;
+	}
+	
+	function getUserid($username){
+		$function = "getUserid";
+		$params = array('username' => $username);
 		$res = SOAPCall($function, $params);
 		return $res;
 	}

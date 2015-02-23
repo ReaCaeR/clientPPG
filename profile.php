@@ -30,5 +30,9 @@
 	<div id='nextmatches'>
 		PROSSIME PARTITE
 	</div>
+	<?php
+		if ($_SESSION['admin'] > 0)
+		include("admin_panel.php");
+	?>
 </body> 
 </html>
