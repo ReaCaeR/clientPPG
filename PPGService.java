@@ -135,7 +135,7 @@ class Database{
     
     protected ResultSet getMatches(){
         try{
-            String query="SELECT `match_id`,`id_s1`,`id_s2`,`match_date`,`res1`,`res2` FROM `matches`, `user_authentication` WHERE `matches`.`id_s1`=`user_authentication`.`user_id` ORDER BY DATEDIFF(`match_date`, CURDATE())";
+            String query="SELECT `match_id`,`id_s1`,`id_s2`,`match_date`,`res1`,`res2` FROM `matches`, `user_authentication` WHERE `matches`.`id_s1`=`user_authentication`.`user_id` ORDER BY DATEDIFF(`match_date`, CURDATE()) DESC";
             pst=con.prepareStatement(query);
             rs=pst.executeQuery();
         } catch (Exception e) {
@@ -212,6 +212,7 @@ class Database{
             pst.setInt(2, r2);
             pst.setInt(3, match_id);
             pst.executeUpdate();
+            xml.getFeeds();
             return 0;
         }catch (Exception e) {return -1;}
     }
