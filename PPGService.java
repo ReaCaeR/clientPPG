@@ -379,6 +379,24 @@ protected boolean getFeeds() {
             match_date.appendChild(doc.createTextNode(String.format("%1$TD %1$TT", rs_match_date)));
             match.appendChild(match_date);
             
+            boolean challenge_accepted = (rs_id_squadra_2 > 0);
+            boolean challenge_ended = challenge_accepted && ((rs_res_squadra_1 + rs_res_squadra_2) > 0);
+            
+            Element challenge_status = doc.createElement("challenge_status");
+            if(challenge_ended)
+            {
+                challenge_status.appendChild(doc.createTextNode("ENDED"));
+            }
+            else if (challenge_accepted)
+            {
+                challenge_status.appendChild(doc.createTextNode("ACCEPTED"));
+            }
+            else
+            {
+                challenge_status.appendChild(doc.createTextNode("PENDING"));
+            }
+            match.appendChild(challenge_status);
+            
             String nome_squadra;
             // MATCH - SQUADRA_1
             Element squadra_1 = doc.createElement("squadra_1");
@@ -398,37 +416,39 @@ protected boolean getFeeds() {
             squadra_1.appendChild(motto_squadra_1);
             
             // MATCH - SQUADRA_2
-            // TODO: controllare se non esiste ancora un avversario
-            // NOTE: se l'avversario non esiste il suo nome è 'errore', come ritornato da db.getUsername
-            Element squadra_2 = doc.createElement("squadra_2");
-            match.appendChild(squadra_2);
-            
-            Element id_squadra_2 = doc.createElement("id_squadra_2");
-            id_squadra_2.appendChild(doc.createTextNode(Integer.toString(rs_id_squadra_2)));
-            squadra_2.appendChild(id_squadra_2);
-            
-            Element nome_squadra_2 = doc.createElement("nome_squadra_2");
-            nome_squadra_2.appendChild(doc.createTextNode(db.getUsername(rs_id_squadra_2)));
-            squadra_2.appendChild(nome_squadra_2);
-            
-            Element motto_squadra_2 = doc.createElement("motto_squadra_2");
-            nome_squadra = db.getUsername(rs_id_squadra_2);
-            motto_squadra_2.appendChild(doc.createTextNode(db.getMotto(nome_squadra)));
-            squadra_2.appendChild(motto_squadra_2);
-            
+            if(challenge_accepted)
+            {
+                Element squadra_2 = doc.createElement("squadra_2");
+                match.appendChild(squadra_2);
+
+                Element id_squadra_2 = doc.createElement("id_squadra_2");
+                id_squadra_2.appendChild(doc.createTextNode(Integer.toString(rs_id_squadra_2)));
+                squadra_2.appendChild(id_squadra_2);
+
+                Element nome_squadra_2 = doc.createElement("nome_squadra_2");
+                nome_squadra_2.appendChild(doc.createTextNode(db.getUsername(rs_id_squadra_2)));
+                squadra_2.appendChild(nome_squadra_2);
+
+                Element motto_squadra_2 = doc.createElement("motto_squadra_2");
+                nome_squadra = db.getUsername(rs_id_squadra_2);
+                motto_squadra_2.appendChild(doc.createTextNode(db.getMotto(nome_squadra)));
+                squadra_2.appendChild(motto_squadra_2);
+            }
+
             // MATCH - RESULTS
-            // TODO: controllare se il match non è stato ancora disputato e non ci sono quindi risultati
-            // NOTE: se i risultati sono null nel database sono 0 in java
-            Element match_results = doc.createElement("match_results");
-            match.appendChild(match_results);
-            
-            Element match_results_1 = doc.createElement("match_results_1");
-            match_results_1.appendChild(doc.createTextNode(Integer.toString(rs_res_squadra_1)));
-            Element match_results_2 = doc.createElement("match_results_2");
-            match_results_2.appendChild(doc.createTextNode(Integer.toString(rs_res_squadra_2)));
-            
-            match_results.appendChild(match_results_1);
-            match_results.appendChild(match_results_2);
+            if(challenge_ended)
+            {
+                Element match_results = doc.createElement("match_results");
+                match.appendChild(match_results);
+
+                Element match_results_1 = doc.createElement("match_results_1");
+                match_results_1.appendChild(doc.createTextNode(Integer.toString(rs_res_squadra_1)));
+                Element match_results_2 = doc.createElement("match_results_2");
+                match_results_2.appendChild(doc.createTextNode(Integer.toString(rs_res_squadra_2)));
+
+                match_results.appendChild(match_results_1);
+                match_results.appendChild(match_results_2);
+            }
         }
  
         // Scrive nel file XML
@@ -553,4 +573,3 @@ public class PPGService{
         xml.getFeeds();
     } 
 }
-
