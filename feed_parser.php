@@ -85,18 +85,22 @@
 				'</div>' .
 				'<div class="teams">' .
 					'<div class="team_1">' .
+						'<div class="team_name_1">' .
 						$match->squadra_1[0]->nome_squadra_1 .
+						'</div>' .
 						'<br/>' .
+						'<div class="team_motto_1">' .
 						$match->squadra_1[0]->motto_squadra_1 .
-						'<br/>' .
-						$match->match_results[0]->match_results_1 .
+						'</div>' .
 					'</div>' .
 					'<div class="team_2">' .
+						'<div class="team_name_2">' .
 						$match->squadra_2[0]->nome_squadra_2 .
+						'</div>' .
 						'<br/>' .
+						'<div class="team_motto_2">' .
 						$match->squadra_2[0]->motto_squadra_2 .
-						'<br/>' .
-						$match->match_results[0]->match_results_2 .
+						'</div>' .
 					'</div>' .
 				'</div>' .
 			'</div>' .
