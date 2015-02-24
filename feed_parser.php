@@ -11,9 +11,13 @@
 					$match->match_date .
 				'</div>' .
 				'<div class="team_looking_for_challenger">' .
+					'<div class="team_looking_for_challenger_name">' .
 					$match->squadra_1[0]->nome_squadra_1 .
+					'</div>' .
 					'<br/>' .
+					'<div class="team_looking_for_challenger_motto">' .
 					$match->squadra_1[0]->motto_squadra_1 .
+					'</div>' .
 					'<br/>' .
 					'<div class="accept_challenge_button">' .
 					'<form name="accept" action="challenge_call.php" method="post">' .
