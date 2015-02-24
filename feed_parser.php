@@ -38,15 +38,34 @@
 				'</div>' .
 				'<div class="teams">' .
 					'<div class="team_1">' .
+						'<div class="team_name_1">' .
 						$match->squadra_1[0]->nome_squadra_1 .
+						'</div>' .
 						'<br/>' .
+						'<div class="team_motto_1">' .
 						$match->squadra_1[0]->motto_squadra_1 .
+						'</div>' .
 					'</div>' .
 					'<div class="team_2">' .
+						'<div class="team_name_1">' .
 						$match->squadra_2[0]->nome_squadra_2 .
+						'</div>' .
 						'<br/>' .
+						'<div class="team_motto_1">' .
 						$match->squadra_2[0]->motto_squadra_2 .
-					'</div>' .
+						'</div>' .
+					'</div>';
+		if($_SESSION['admin'] > 0)
+		{
+			echo 
+				'<form name="accept" action="set_match_results_call.php" method="post">' .
+					'<input type="text" name="r1">' .
+					'<input type="text" name="r2">' .
+					'<input type="hidden" name="match_id" value='.$match->match_id.'>' .
+					'<input type="submit" value="INSERISCI RISULTATO"/>' .
+				'</form>';
+		}
+		echo	
 				'</div>' .
 			'</div>' .
 		'</div>';
