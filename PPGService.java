@@ -142,6 +142,17 @@ class Database{
         return rs;
     }
     
+    protected int acceptChallenge(String username, int match_id){
+        try{
+            String query="UPDATE `matches` SET `id_s2` = ? WHERE `match_id` = ?";
+            pst=con.prepareStatement(query);
+            pst.setString(1, username);
+            pst.setInt(2, match_id);
+            pst.executeUpdate();
+        } catch (Exception e) {return -1;}
+        return 0;
+    }
+    
     //ADMIN METHODS
     protected int isAdmin(int user_id){
         try {
@@ -187,6 +198,18 @@ class Database{
             else
                 return "SQUADRA NON PRESENTE NEL DB";
         }catch (Exception e) {return "Operazione fallita.";}
+    }
+    
+    protected int modResults(int r1, int r2, int match_id){
+        try{
+            String query="UPDATE `matches` SET `res1` = ?, `res2` = ? WHERE `match_id` = ?";
+            pst=con.prepareStatement(query);
+            pst.setInt(1, r1);
+            pst.setInt(2, r2);
+            pst.setInt(3, match_id);
+            pst.executeUpdate();
+            return 0;
+        }catch (Exception e) {return -1;}
     }
         
     //GETTER METHODS FOR USERS
@@ -467,6 +490,13 @@ public class PPGService{
         return db.rmvUser(user_id);
     }
     
+    @WebMethod(operationName = "modResults")
+    public int modResults(  @WebParam(name = "r1") int r1,
+                               @WebParam(name = "r2") int r2,
+                               @WebParam(name = "match_id") int match_id){
+        return db.modResults(r1, r2, match_id);
+    }
+    
     //POST WEBMETHODS
     @WebMethod(operationName = "setPost")
     public String setPost(  @WebParam(name = "user_id") int user_id, 
@@ -480,6 +510,12 @@ public class PPGService{
                              @WebParam(name = "match_date") String match_date) {
            return db.setMatch(user_id, match_date);
     }  
+    
+    @WebMethod(operationName = "acceptChallenge")
+    public int acceptChallenge(@WebParam(name = "username") String username,
+                               @WebParam(name = "match_id") int match_id) {
+        return db.acceptChallenge(username, match_id);
+    } 
 
     @WebMethod(operationName = "updatePostXML")
     public boolean updatePostXML() {
