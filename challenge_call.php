@@ -7,13 +7,13 @@
 		require_once("helper.php");
 		
 		$function = "acceptChallenge";
-		$params = array('username' => $_SESSION['username'], 
-						'match_id' => $_POST['submit']);				
+		$params = array('id_sfidante' => $_SESSION['user_id'], 
+						'match_id' => $_POST['match_id']);				
 		$res = SOAPCall($function, $params);
 		if ($res == 0)
-			echo 'SFIDA ACCETTATA':
+			echo 'SFIDA ACCETTATA';
 		else
-			echo 'ERRORE';
+			echo 'ERRORE' . $res;
 
 		header("Refresh: 4;url=./index.php");
 	?>

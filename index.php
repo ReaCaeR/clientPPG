@@ -17,7 +17,7 @@
         		}
         		else{
         			//include("send_post.php");
-        			include("feeds.php");
+        			include("feed_parser.php");
         		}
     		?>
         </div>
