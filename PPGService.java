@@ -142,11 +142,11 @@ class Database{
         return rs;
     }
     
-    protected int acceptChallenge(String username, int match_id){
+    protected int acceptChallenge(int id_sfidante, int match_id){
         try{
             String query="UPDATE `matches` SET `id_s2` = ? WHERE `match_id` = ?";
             pst=con.prepareStatement(query);
-            pst.setString(1, username);
+            pst.setInt(1, id_sfidante);
             pst.setInt(2, match_id);
             pst.executeUpdate();
         } catch (Exception e) {return -1;}
@@ -376,7 +376,7 @@ protected boolean getFeeds() {
             match.appendChild(match_id);
             
             Element match_date = doc.createElement("match_date");
-            match_date.appendChild(doc.createTextNode(String.format("%1$TD %1$TT", rs_match_date)));
+            match_date.appendChild(doc.createTextNode(String.format("%1$TD", rs_match_date)));
             match.appendChild(match_date);
             
             boolean challenge_accepted = (rs_id_squadra_2 > 0);
@@ -532,9 +532,9 @@ public class PPGService{
     }  
     
     @WebMethod(operationName = "acceptChallenge")
-    public int acceptChallenge(@WebParam(name = "username") String username,
+    public int acceptChallenge(@WebParam(name = "id_sfidante") int id_sfidante,
                                @WebParam(name = "match_id") int match_id) {
-        return db.acceptChallenge(username, match_id);
+        return db.acceptChallenge(id_sfidante, match_id);
     } 
 
     @WebMethod(operationName = "updatePostXML")
