@@ -19,7 +19,7 @@ class Database{
     private PreparedStatement pst;
     private ResultSet rs;
     static Database db;
-    XMLPostFile xml;
+    private XMLPostFile xml;
         
     public static Database getDatabaseHandler(){
         if(db == null)
