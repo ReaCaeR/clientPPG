@@ -19,6 +19,7 @@ class Database{
     private PreparedStatement pst;
     private ResultSet rs;
     static Database db;
+    XMLPostFile xml;
         
     public static Database getDatabaseHandler(){
         if(db == null)
@@ -34,6 +35,7 @@ class Database{
 	catch (Exception e) {
             System.out.println(e);
 	}
+         xml = XMLPostFile.getXMLHandler();
     }
     
     //LOGIN/REGISTRATION METHODS	
@@ -115,6 +117,7 @@ class Database{
         } catch (Exception e){
             return "Errore! " + e;
         }
+        xml.getFeeds();
         return "Proposta di Match inserita!";  
     }
     
@@ -149,6 +152,7 @@ class Database{
             pst.setInt(1, id_sfidante);
             pst.setInt(2, match_id);
             pst.executeUpdate();
+            xml.getFeeds();
         } catch (Exception e) {return -1;}
         return 0;
     }
@@ -279,6 +283,19 @@ class XMLPostFile {
 
 String post_repo_xml="C:\\xampp\\htdocs\\clientPPG\\postfile.xml";
 String feeds_xml="C:\\xampp\\htdocs\\clientPPG\\feeds.xml";
+
+static XMLPostFile xml;
+
+public static XMLPostFile getXMLHandler(){
+        if(xml == null)
+            xml = new XMLPostFile();
+        return xml;
+    }
+
+private XMLPostFile()
+{
+    
+}
 
 protected boolean getXML() {
     
@@ -539,7 +556,7 @@ public class PPGService{
 
     @WebMethod(operationName = "updatePostXML")
     public boolean updatePostXML() {
-        XMLPostFile xml = new XMLPostFile();
+        XMLPostFile xml = XMLPostFile.getXMLHandler();
         boolean res = xml.getXML();
         return res;
     }
@@ -569,7 +586,7 @@ public class PPGService{
     
     @WebMethod(operationName = "runTest")
     public void runTest() {
-        XMLPostFile xml = new XMLPostFile();
+        XMLPostFile xml = XMLPostFile.getXMLHandler();
         xml.getFeeds();
     } 
 }
