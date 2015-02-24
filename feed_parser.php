@@ -2,17 +2,6 @@
 	$url = "feeds.xml";
 	$xml = simplexml_load_file($url);
 
-//echo $match->squadra_1[0]->id_squadra_1 . " ";
-
-	function printAcceptChallengeForm($match_id)
-	{
-		echo
-		'<form name="accept" action="challenge_call.php" method="post">' .
-			'<input type="hidden" name="match_id" value='.$match_id.'>' .
-			'<p><input type="submit" value="ACCETTA LA SFIDA!"/></p>' .
-		'</form>';
-	}
-
 	function printPendingChallenge($match)
 	{
 		echo
@@ -26,7 +15,13 @@
 					'<br/>' .
 					$match->squadra_1[0]->motto_squadra_1 .
 					'<br/>' .
-					printAcceptChallengeForm($match->match_id) .
+					'<div class="accept_challenge_button">' .
+					'<form name="accept" action="challenge_call.php" method="post">' .
+						'<input type="hidden" name="match_id" value='.$match->match_id.'>' .
+						'<input type="submit" value="ACCETTA LA SFIDA!"/>' .
+					'</form>' .
+
+					'</div>' .
 				'</div>' .
 			'</div>' .
 		'</div>';

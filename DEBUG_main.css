@@ -2,11 +2,6 @@ html,body{
     height:100%
 }
 
-body,.center{
-    background-color:#964B8A;
-    color:#B478AB;
-}
-
 .wrap{
     width:100%;
     height:100%;
@@ -14,15 +9,12 @@ body,.center{
 }
 
 .head{
-    height:7em;
+    height:100px;
     position:fixed;
     z-index: 666;
     top:0;
     left:0;
-    width:100%;
-    border-bottom: 5px solid;
-    border-color: #3C0033;
-    background-color:5A0F4E;
+    width:100%
 }
 
 .bodywrap{
@@ -32,8 +24,7 @@ body,.center{
 
 .left,.right{
     width:200px;
-    height:100%;
-    background-color:5A0F4E;
+    height:100%
 }
 
 .left,.center,.right,.bodywrap{
@@ -42,19 +33,35 @@ body,.center{
 
 .left{
     float:left;
-    position:fixed;
-    margin-right:20px;}
+    position:fixed
+}
 
 .center{
     margin-left:200px;
-    margin-right:191px;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    margin-right:191px
 }
 
 .right{
     position:fixed;
-    right:0;
+    right:0
+}
+
+.left{
+    background-color:#6431B0;
+}
+
+.right{
+    background-color:#6431B0;
+}
+
+.center{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background-color:#6B53AB;
+}
+
+.head{
+    background-color:#5E4780;
 }
 
 #logo{

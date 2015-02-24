@@ -22,6 +22,7 @@
 		</fieldset>
 		</br>
 		NB: Le azioni eseguite sono permanenti! 
+	</form>
 	</div>
 </body>
 </html>
