@@ -130,6 +130,18 @@ class Database{
         return rs;
     }
     
+    protected ResultSet getMatches(){
+        try{
+            String query="SELECT `match_id`,`id_s1`,`id_s2`,`match_date`,`res1`,`res2` FROM `matches`, `user_authentication` WHERE `matches`.`id_s1`=`user_authentication`.`user_id` ORDER BY DATEDIFF(`match_date`, CURDATE())";
+            pst=con.prepareStatement(query);
+            rs=pst.executeQuery();
+        } catch (Exception e) {
+            System.out.println("Errore: " + e);
+            return null;
+        }
+        return rs;
+    }
+    
     //ADMIN METHODS
     protected int isAdmin(int user_id){
         try {
@@ -240,10 +252,10 @@ class Database{
     }
 }
 
-
 class XMLPostFile {
 
 String post_repo_xml="C:\\xampp\\htdocs\\clientPPG\\postfile.xml";
+String feeds_xml="C:\\xampp\\htdocs\\clientPPG\\feeds.xml";
 
 protected boolean getXML() {
     
@@ -286,8 +298,7 @@ protected boolean getXML() {
                     
             Element username = doc.createElement("username");
             username.appendChild(doc.createTextNode(uname));
-            post.appendChild(username);
-                    
+            post.appendChild(username);        
         }
  
         // Scrive nel file XML
@@ -300,20 +311,119 @@ protected boolean getXML() {
  
 	return true;
                 
-    } catch (SQLException ex) {
+    } catch (SQLException | ParserConfigurationException | TransformerException ex) {
         System.out.println(ex);
         return false;
-    } catch (ParserConfigurationException pce) {
-        System.out.println(pce);
-        return false;
-    } catch (TransformerException tfe) {
-        System.out.println(tfe);
+    }
+}
+
+protected boolean getFeeds() {
+    
+    Database db = Database.getDatabaseHandler();
+    
+    ResultSet rs=db.getMatches();
+    try {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+                  
+        Document doc = docBuilder.newDocument();
+        Element root = doc.createElement("root");
+        doc.appendChild(root);
+                
+        while (rs.next()) {    	
+        //match_id
+        //id_s1
+        //id_s2
+        //match_date
+        //res1
+        //res2
+            int rs_match_id = rs.getInt("match_id");
+            int rs_id_squadra_1 = rs.getInt("id_s1");
+            int rs_id_squadra_2 = rs.getInt("id_s2");
+            Timestamp rs_match_date = rs.getTimestamp("match_date");
+            int rs_res_squadra_1 = rs.getInt("res1");
+            int rs_res_squadra_2 = rs.getInt("res2");
+            
+            // MATCH
+            Element match = doc.createElement("match");
+            root.appendChild(match);
+            
+            Element match_id = doc.createElement("match_id");
+            match_id.appendChild(doc.createTextNode(Integer.toString(rs_match_id)));
+            match.appendChild(match_id);
+            
+            Element match_date = doc.createElement("match_date");
+            match_date.appendChild(doc.createTextNode(String.format("%1$TD %1$TT", rs_match_date)));
+            match.appendChild(match_date);
+            
+            String nome_squadra;
+            // MATCH - SQUADRA_1
+            Element squadra_1 = doc.createElement("squadra_1");
+            match.appendChild(squadra_1);
+            
+            Element id_squadra_1 = doc.createElement("id_squadra_1");
+            id_squadra_1.appendChild(doc.createTextNode(Integer.toString(rs_id_squadra_1)));
+            squadra_1.appendChild(id_squadra_1);
+            
+            Element nome_squadra_1 = doc.createElement("nome_squadra_1");
+            nome_squadra_1.appendChild(doc.createTextNode(db.getUsername(rs_id_squadra_1)));
+            squadra_1.appendChild(nome_squadra_1);
+            
+            Element motto_squadra_1 = doc.createElement("motto_squadra_1");
+            nome_squadra = db.getUsername(rs_id_squadra_1);
+            motto_squadra_1.appendChild(doc.createTextNode(db.getMotto(nome_squadra)));
+            squadra_1.appendChild(motto_squadra_1);
+            
+            // MATCH - SQUADRA_2
+            // TODO: controllare se non esiste ancora un avversario
+            // NOTE: se l'avversario non esiste il suo nome è 'errore', come ritornato da db.getUsername
+            Element squadra_2 = doc.createElement("squadra_2");
+            match.appendChild(squadra_2);
+            
+            Element id_squadra_2 = doc.createElement("id_squadra_2");
+            id_squadra_2.appendChild(doc.createTextNode(Integer.toString(rs_id_squadra_2)));
+            squadra_2.appendChild(id_squadra_2);
+            
+            Element nome_squadra_2 = doc.createElement("nome_squadra_2");
+            nome_squadra_2.appendChild(doc.createTextNode(db.getUsername(rs_id_squadra_2)));
+            squadra_2.appendChild(nome_squadra_2);
+            
+            Element motto_squadra_2 = doc.createElement("motto_squadra_2");
+            nome_squadra = db.getUsername(rs_id_squadra_2);
+            motto_squadra_2.appendChild(doc.createTextNode(db.getMotto(nome_squadra)));
+            squadra_2.appendChild(motto_squadra_2);
+            
+            // MATCH - RESULTS
+            // TODO: controllare se il match non è stato ancora disputato e non ci sono quindi risultati
+            // NOTE: se i risultati sono null nel database sono 0 in java
+            Element match_results = doc.createElement("match_results");
+            match.appendChild(match_results);
+            
+            Element match_results_1 = doc.createElement("match_results_1");
+            match_results_1.appendChild(doc.createTextNode(Integer.toString(rs_res_squadra_1)));
+            Element match_results_2 = doc.createElement("match_results_2");
+            match_results_2.appendChild(doc.createTextNode(Integer.toString(rs_res_squadra_2)));
+            
+            match_results.appendChild(match_results_1);
+            match_results.appendChild(match_results_2);
+        }
+ 
+        // Scrive nel file XML
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+	DOMSource source = new DOMSource(doc);
+	StreamResult result = new StreamResult(new File(feeds_xml));
+ 		
+ 	transformer.transform(source, result);
+ 
+	return true;
+                
+    } catch (SQLException | ParserConfigurationException | TransformerException ex) {
+        System.out.println(ex);
         return false;
     }
 }
 }
-
-
 
 
 
@@ -399,6 +509,12 @@ public class PPGService{
     @WebMethod(operationName = "getMotto")
     public String getMotto(@WebParam(name = "username") String username) {
         return db.getMotto(username);
+    }
+    
+    @WebMethod(operationName = "runTest")
+    public void runTest() {
+        XMLPostFile xml = new XMLPostFile();
+        xml.getFeeds();
     } 
 }
 
