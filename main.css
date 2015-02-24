@@ -11,6 +11,7 @@ html,body{
 .head{
     height:100px;
     position:fixed;
+    z-index: 666;
     top:0;
     left:0;
     width:100%
@@ -54,6 +55,8 @@ html,body{
 }
 
 .center{
+    padding-top: 1em;
+    padding-bottom: 1em;
     background-color:#6B53AB;
 }
 
@@ -90,4 +93,65 @@ html,body{
 	text-align: center;
 	font-style: italic;
 	
+}
+
+/* FEEDS */
+.feed_wrapper{
+    background-color: rgb(120,120,120);
+}
+
+.feed{
+    width: 95%;
+    height: 6em;
+
+    margin: 1em auto;
+    margin-bottom: 0;
+
+    vertical-align: center;
+    position:relative;
+
+    background-color: rgb(220,220,220);
+}
+
+.challenge_date{
+    position:absolute;
+
+    right:1em;
+    top:0;
+
+    background-color: rgb(50, 220, 100);
+}
+
+.challenge_pending, .challenge_accepted, .challenge_ended{
+    padding: 1em;
+
+    background-color: rgb(220, 50, 100);
+}
+
+.teams{
+    width: 80%;
+    margin: 0 auto;
+    text-align:center;
+
+    background-color: rgb(200, 50, 200);
+}
+
+.team_1{
+    float: left;
+    width:50%;
+
+    background-color: rgb(180, 50, 50);
+}
+
+.team_2{
+    float:right;
+    width:50%;
+
+    background-color: rgb(50, 180, 50);
+}
+
+.team_looking_for_challenger{
+    text-align:center;
+
+    background-color: rgb(50, 50, 180);
 }
