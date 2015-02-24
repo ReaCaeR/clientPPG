@@ -17,6 +17,7 @@
         		}
         		else{
         			//include("send_post.php");
+                    include("feed_sample.php");
         			include("feed_parser.php");
         		}
     		?>

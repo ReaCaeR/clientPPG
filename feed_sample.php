@@ -11,7 +11,9 @@
 					<br/>
 					[MOTTO_TEAM_CERCA_SFIDANTE]
 					<br/>
-					[ACCETTA_SFIDA]
+					<div class="accept_challenge_button">
+						<form><input type="submit" value="ACCETTA LA SFIDA!"/></form>
+					</div>
 				</div>
 			</div>
 		</div>
