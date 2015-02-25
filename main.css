@@ -3,8 +3,7 @@ html,body{
 }
 
 body,.center{
-    background-color:#964B8A;
-    color:#B478AB;
+    background-color:3E3EC1;
 }
 
 .wrap{
@@ -21,8 +20,8 @@ body,.center{
     left:0;
     width:100%;
     border-bottom: 5px solid;
-    border-color: #3C0033;
-    background-color:5A0F4E;
+    border-color: 111835;
+    background-color:283772;
 }
 
 .bodywrap{
@@ -33,7 +32,13 @@ body,.center{
 .left,.right{
     width:200px;
     height:100%;
-    background-color:5A0F4E;
+    background-color:5B5B9F;
+}
+
+.center{
+border-left:5px solid;
+border-right:5px solid;
+border-color: 111835;
 }
 
 .left,.center,.right,.bodywrap{
@@ -90,7 +95,7 @@ body,.center{
 
 /* FEEDS */
 .feed_wrapper{
-    background-color: rgb(120,120,120);
+    background-color: 6675B3;
 }
 
 .feed{
@@ -103,7 +108,7 @@ body,.center{
     vertical-align: center;
     position:relative;
 
-    background-color: rgb(220,220,220);
+    background-color: 5B5B9F;
 }
 
 .challenge_date{
@@ -112,13 +117,13 @@ body,.center{
     right:1em;
     top:0;
 
-    background-color: rgb(50, 220, 100);
+    background-color: 5B5B9F;
 }
 
 .challenge_pending, .challenge_accepted, .challenge_ended{
     padding: 1em;
 
-    background-color: rgb(220, 50, 100);
+    background-color: 5B5B9F;
 }
 
 .teams{
@@ -126,27 +131,27 @@ body,.center{
     margin: 0 auto;
     text-align:center;
 
-    background-color: rgb(200, 50, 200);
+    background-color: 5B5B9F;
 }
 
 .team_1{
     float: left;
     width:50%;
 
-    background-color: rgb(180, 50, 50);
+    background-color: 8C4B9C;
 }
 
 .team_2{
     float:right;
     width:50%;
 
-    background-color: rgb(50, 180, 50);
+    background-color: 5BAFD2;
 }
 
 .team_looking_for_challenger{
     text-align:center;
 
-    background-color: rgb(50, 50, 180);
+    background-color: E99B27;
 }
 
 .accept_challenge_button{
@@ -155,5 +160,5 @@ body,.center{
     right:1em;
     bottom:-1em;
 
-    background-color: rgb(50, 220, 100);
+    background-color: 3E3EC1;
 }
