@@ -92,6 +92,9 @@
 						'<div class="team_motto_1">' .
 						$match->squadra_1[0]->motto_squadra_1 .
 						'</div>' .
+						'<div class="team_result_1">' .
+						$match->match_results[0]->match_results_1 .
+						'</div>' .
 					'</div>' .
 					'<div class="team_2">' .
 						'<div class="team_name_2">' .
@@ -100,6 +103,9 @@
 						'<br/>' .
 						'<div class="team_motto_2">' .
 						$match->squadra_2[0]->motto_squadra_2 .
+						'</div>' .
+						'<div class="team_result_1">' .
+						$match->match_results[0]->match_results_2 .
 						'</div>' .
 					'</div>' .
 				'</div>' .
